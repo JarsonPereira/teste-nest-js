@@ -1,5 +1,4 @@
-import { type } from "os";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Category } from "./category.entity";
 
 
