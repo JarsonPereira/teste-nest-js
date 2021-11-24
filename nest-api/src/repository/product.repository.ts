@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, RepositoryNotFoundError } from "typeorm";
 import { Product } from "../entity/product.entity";
-import { ProductContracts } from "./contratcs/productContratc";
+import { ProductContracts } from "./contratcs/product.contratc";
 
 @Injectable()
 export class ProductRepository implements ProductContracts {
