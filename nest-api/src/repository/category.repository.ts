@@ -5,7 +5,7 @@ import { Category } from "../entity/category.entity";
 import { CategoryContract } from "./contratcs/categoty.contract";
 
 @Injectable()
-export class CategoryRepositoy implements CategoryContract {
+export class CategoryRepository implements CategoryContract {
     constructor(@InjectRepository(Category)
     private readonly repository: Repository<Category>) { }
 
