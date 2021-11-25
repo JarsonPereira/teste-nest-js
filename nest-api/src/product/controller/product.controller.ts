@@ -32,7 +32,7 @@ export class ProductController {
     }
 
     @Post()
-    @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
+   // @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
     async post(@Body() model: Product) {
         try {
             await this.repository.post(model);
@@ -43,8 +43,8 @@ export class ProductController {
         }
     }
 
-    @Put()
-    @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
+    @Put(':id')
+   // @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
     async put(@Body() model: Product, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);
@@ -55,7 +55,7 @@ export class ProductController {
         }
     }
 
-    @Delete()
+    @Delete(':id')
     async delete(@Param('id') id: number) {
         try {
             await this.repository.delete(id)

@@ -32,19 +32,19 @@ export class CategoryController {
     }
 
     @Post()
-   @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+   //@UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async post(@Body() model: Category) {
         try {
             await this.repository.post(model);
-            return new Result('Categporia cadastrado com sucesso.', true, model, HttpStatus.CREATED)
+            return new Result('Categoria cadastrado com sucesso.', true, model, HttpStatus.CREATED)
         } catch (error) {
             return new Result('Falha ao cadastrar a categoria', false, model, HttpStatus.BAD_REQUEST)
 
         }
     }
 
-    @Put()
-    @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+    @Put(':id')
+   // @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async put(@Body() model: Category, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);
@@ -55,7 +55,7 @@ export class CategoryController {
         }
     }
 
-    @Delete()
+    @Delete(':id')
     async delete(@Param('id') id: number) {
         try {
             await this.repository.delete(id)
