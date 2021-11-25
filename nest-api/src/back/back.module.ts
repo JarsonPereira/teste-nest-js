@@ -6,10 +6,9 @@ import { CategoryRepository } from "./repository/category.repository";
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([CategoryRepository])],
+    imports: [TypeOrmModule.forFeature([Category])],
     controllers: [CategoryController],
     providers: [CategoryRepository],
-    exports: [CategoryRepository]
 })
 
 export class Back { }

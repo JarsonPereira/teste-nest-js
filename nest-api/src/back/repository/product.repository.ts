@@ -6,11 +6,9 @@ import { ProductContracts } from "./contratcs/product.contratc";
 
 @Injectable()
 export class ProductRepository implements ProductContracts {
-    /**
-     *
-     */
-
-    private readonly repository: Repository<Product>;
+    constructor(
+        @InjectRepository(Product)
+        private readonly repository: Repository<Product>,) { }
 
     async get(): Promise<Product[]> {
         return await this.repository.find();

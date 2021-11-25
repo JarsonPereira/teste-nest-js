@@ -6,24 +6,25 @@ import { CategoryContract } from "./contratcs/categoty.contract";
 
 @Injectable()
 export class CategoryRepository implements CategoryContract {
-    constructor(@InjectRepository(Category) private readonly abc: Repository<Category>) { }
+
+    constructor(@InjectRepository(Category) private readonly repository: Repository<Category>) { }
 
     async get(): Promise<Category[]> {
-        return await this.abc.find();
+        return await this.repository.find();
     }
 
     async getById(id: number): Promise<Category> {
-        return await this.abc.findOne(id);
+        return await this.repository.findOne(id);
     }
 
     async post(category: Category) {
-        await this.abc.save(category);
+        await this.repository.save(category);
     }
 
     async put(id: number, category: Category) {
-        await this.abc.update(id, category);
+        await this.repository.update(id, category);
     }
     async delete(id: number) {
-        await this.abc.delete(id);
+        await this.repository.delete(id);
     }
 }
