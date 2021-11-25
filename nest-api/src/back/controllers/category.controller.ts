@@ -1,6 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { Category } from "../entity/category.entity";
 import { CategoryRepository } from "../repository/category.repository";
+import { CategoryValidator } from "../validators/category.validator";
+import { ValidatorInterceptor } from "../validators/interceptor.validator";
+
 
 @Controller('category')
 export class CategoryController {
@@ -26,6 +29,7 @@ export class CategoryController {
     }
 
     @Post()
+    @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async post(@Body() model: Category) {
         try {
             await this.repository.post(model);
@@ -35,6 +39,7 @@ export class CategoryController {
     }
 
     @Put()
+    @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async put(@Body() model: Category, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);

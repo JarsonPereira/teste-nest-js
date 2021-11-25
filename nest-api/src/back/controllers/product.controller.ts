@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { Product } from "../entity/product.entity";
 import { ProductRepository } from "../repository/product.repository";
+import { ValidatorInterceptor } from "../validators/interceptor.validator";
+import { ProductValidator } from "../validators/product.validator";
 
 @Controller('product')
 export class ProductController {
@@ -26,6 +28,7 @@ export class ProductController {
     }
 
     @Post()
+    @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
     async post(@Body() model: Product) {
         try {
             await this.repository.post(model);
@@ -35,6 +38,7 @@ export class ProductController {
     }
 
     @Put()
+    @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
     async put(@Body() model: Product, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);

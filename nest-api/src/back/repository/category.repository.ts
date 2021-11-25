@@ -7,7 +7,7 @@ import { CategoryContract } from "./contratcs/categoty.contract";
 @Injectable()
 export class CategoryRepository implements CategoryContract {
 
-    constructor(@InjectRepository(Category) private readonly repository: Repository<Category>) { }
+    constructor(private readonly repository: Repository<Category>) { }
 
     async get(): Promise<Category[]> {
         return await this.repository.find();
