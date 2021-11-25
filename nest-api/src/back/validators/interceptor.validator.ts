@@ -12,7 +12,7 @@ export class ValidatorInterceptor implements NestInterceptor {
         const body = context.switchToHttp().getRequest().body;
         const valid = this.contract.validator(body);
         if (!valid) {
-            throw new HttpException(new Result('Erro ao validar requisição', false, null, this.contract.errors), HttpStatus.BAD_REQUEST)
+            throw new HttpException(new Result('Erro ao validar requisição', false, body, this.contract.errors), HttpStatus.BAD_REQUEST)
         }
         return call$;
     }

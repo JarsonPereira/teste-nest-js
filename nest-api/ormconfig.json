@@ -8,9 +8,11 @@
    "synchronize": true,
    "logging": false,
    "entities": [
-      "src/entity/**/*.ts"
+      "src/category/entity/**/*.ts", 
+      "src/product/entity/**/*.ts",
+      "src/installment/entity/**/*.ts"
    ],
-   "migrations": [
+   "migrations": [ 
       "src/migration/**/*.ts"
    ],
    "subscribers": [

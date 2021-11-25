@@ -1,6 +1,6 @@
 import { Category } from "../entity/category.entity";
-import { Validators } from "./validators";
-import { ValidatorsContract } from "./validators.contract";
+import { Validators } from "../../back/validators/validators";
+import { ValidatorsContract } from "../../back/validators/validators.contract";
 
 export class CategoryValidator implements ValidatorsContract {
     errors: any[];

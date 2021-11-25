@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Product } from "../entity/product.entity";
-import { Validators } from "./validators";
-import { ValidatorsContract } from "./validators.contract";
+import { Validators } from "../../back/validators/validators";
+import { ValidatorsContract } from "../../back/validators/validators.contract";
 
 @Injectable()
 export class ProductValidator implements ValidatorsContract {

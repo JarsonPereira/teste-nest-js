@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Category } from "../entity/category.entity";
-import { CategoryContract } from "./contratcs/categoty.contract";
+import { Category } from "../../category/entity/category.entity";
+import { CategoryContract } from "../../category/service/contract/categoty.contract";
 
 @Injectable()
-export class CategoryRepository implements CategoryContract {
+export class CategoryService implements CategoryContract {
 
-    constructor(private readonly repository: Repository<Category>) { }
+    constructor(@InjectRepository(Category) private readonly repository: Repository<Category>) { }
 
     async get(): Promise<Category[]> {
         return await this.repository.find();

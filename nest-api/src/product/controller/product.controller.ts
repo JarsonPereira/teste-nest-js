@@ -1,14 +1,15 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { Product } from "../entity/product.entity";
-import { Result } from "../entity/result.model";
-import { ProductRepository } from "../repository/product.repository";
-import { ValidatorInterceptor } from "../validators/interceptor.validator";
-import { ProductValidator } from "../validators/product.validator";
+import { Result } from "../../back/entity/result.model";
+import { ProductService } from "../service/product.service";
+import { ValidatorInterceptor } from "../../back/validators/interceptor.validator";
+import { ProductValidator } from "../validator/product.validator";
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Controller('product')
 export class ProductController {
 
-    constructor(private repository: ProductRepository) { }
+    constructor(@InjectRepository(Product) private repository: ProductService) { }
 
     @Get()
     async get() {

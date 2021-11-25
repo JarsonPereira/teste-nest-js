@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { Category } from "../entity/category.entity";
-import { Result } from "../entity/result.model";
-import { CategoryRepository } from "../repository/category.repository";
-import { CategoryValidator } from "../validators/category.validator";
-import { ValidatorInterceptor } from "../validators/interceptor.validator";
+import { Result } from "../../back/entity/result.model";
+import { CategoryService } from "../service/category.service";
+import { CategoryValidator } from "../validator/category.validator";
+import { ValidatorInterceptor } from "../../back/validators/interceptor.validator";
 
 
 @Controller('category')
 export class CategoryController {
 
-    constructor(private repository: CategoryRepository) { }
+    constructor(private repository: CategoryService) { }
 
     @Get()
     async get() {
@@ -32,13 +32,13 @@ export class CategoryController {
     }
 
     @Post()
-    @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+   @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async post(@Body() model: Category) {
         try {
             await this.repository.post(model);
             return new Result('Categporia cadastrado com sucesso.', true, model, HttpStatus.CREATED)
         } catch (error) {
-            return new Result('Falha ao cadastrar a categoria', false, [], HttpStatus.BAD_REQUEST)
+            return new Result('Falha ao cadastrar a categoria', false, model, HttpStatus.BAD_REQUEST)
 
         }
     }
