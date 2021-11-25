@@ -30,21 +30,30 @@ export class CategoryController {
             return new Result('Falha ao obter a categoria por ID', false, null, HttpStatus.BAD_REQUEST)
         }
     }
+    @Get('/search/:name')
+    async getByName(@Param('name') name: string) {
+        try {
+            const category = await this.repository.getByName(name);
+            return new Result(null, true, category, null);
+        } catch (error) {
+            return new Result('Falha ao obter a categoria por Nome', false, null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @Post()
-   //@UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+    //@UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async post(@Body() model: Category) {
         try {
             await this.repository.post(model);
-            return new Result('Categoria cadastrado com sucesso.', true, model, HttpStatus.CREATED)
+            return new Result('Categoria cadastrado com sucesso.', true, model, HttpStatus.CREATED);
         } catch (error) {
-            return new Result('Falha ao cadastrar a categoria', false, model, HttpStatus.BAD_REQUEST)
+            return new Result('Falha ao cadastrar a categoria', false, model, HttpStatus.BAD_REQUEST);
 
         }
     }
 
     @Put(':id')
-   // @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+    // @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async put(@Body() model: Category, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);
