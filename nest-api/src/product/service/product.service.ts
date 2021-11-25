@@ -13,7 +13,9 @@ export class ProductService implements ProductContracts {
     async get(): Promise<Product[]> {
         return await this.repository.find();
     }
-
+    async getByName(name: string): Promise<Product> {
+        return await this.repository.findOne({ name: name })
+    }
     async getById(id: number): Promise<Product> {
         return await this.repository.findOne(id);
     }
