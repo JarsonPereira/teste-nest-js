@@ -11,24 +11,25 @@ export class CategoryService implements CategoryContract {
 
     async getByName(name: string): Promise<Category> {
         return await this.repository.findOne({ name: name })
-    }
+    };
 
     async get(): Promise<Category[]> {
         return await this.repository.find();
-    }
+    };
 
     async getById(id: number): Promise<Category> {
         return await this.repository.findOne(id);
-    }
+    };
 
     async post(category: Category) {
         await this.repository.save(category);
-    }
+    };
 
     async put(id: number, category: Category) {
         await this.repository.update(id, category);
-    }
+    };
+
     async delete(id: number) {
         await this.repository.delete(id);
-    }
+    };
 }

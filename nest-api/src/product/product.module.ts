@@ -4,7 +4,6 @@ import { ProductController } from "./controller/product.controller";
 import { Product } from "./entity/product.entity";
 import { ProductService } from "./service/product.service";
 
-
 @Module({
     imports: [TypeOrmModule.forFeature([Product])],
     controllers: [ProductController],

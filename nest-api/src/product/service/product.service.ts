@@ -11,24 +11,26 @@ export class ProductService implements ProductContracts {
     private readonly repository: Repository<Product>) { }
 
     async get(): Promise<Product[]> {
-        return await this.repository.find({relations:['categoria'] });
-    }
+        return await this.repository.find({ relations: ['categoria'] });
+    };
+
     async getByName(name: string): Promise<Product> {
         return await this.repository.findOne({ name: name })
-    }
+    };
+
     async getById(id: number): Promise<Product> {
         return await this.repository.findOne(id);
-    }
+    };
 
     async post(product: Product) {
         await this.repository.save(product);
-    }
+    };
 
     async put(id: number, product: Product) {
         await this.repository.update(id, product)
-    }
+    };
 
     async delete(id: number) {
         await this.repository.delete(id);
-    }
+    };
 }

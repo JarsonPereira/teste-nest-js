@@ -24,5 +24,4 @@ import { ProductModule } from "./product/product.module";
   controllers: [],
   providers: [],
 })
-
 export class AppModule { }

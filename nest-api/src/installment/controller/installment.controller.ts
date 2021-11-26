@@ -1,37 +1,32 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Result } from "../../back/entity/result.model";
-import { Category } from "../../category/entity/category.entity";
-import { CategoryService } from "../../category/service/category.service";
-import { Product } from "../../product/entity/product.entity";
+import { ApiBody, ApiOperation, ApiParam } from "@nestjs/swagger";
 import { ProductService } from "../../product/service/product.service";
 
 @Controller('installment')
 export class InstallmentController {
-    constructor(
-        private product: ProductService,
-        private category: CategoryService,
-    ) {
+    constructor(private product: ProductService) { }
 
-    }
     @Get()
+    @ApiOperation({ description: "Metodo Get simples" })
     get() {
-        return "Teste";
-    }
+        return "Bem vindo ao endpoint de parcelamento."
+    };
 
     @Post(':name')
+    @ApiOperation({
+        description: "EndPoint para calcular o valor mensal do produto" +
+            +" Deverar acessar o metodo Post informando o nome do produto na url." +
+            +" No corpo da requisição deverá informar em quantas vezes quer parcelar o produto."
+    })
+    @ApiParam({ name: "Nome do produto", type: String })
+    @ApiBody({ description: "Número de parcelas" })
     async installment(@Body('installment') quota, @Param('name') name: string) {
-
-        const produtc = await this.product.getByName(name);
-        let categoryFees = (await produtc.categoria).fees;
+        const product = await this.product.getByName(name);
+        let categoryFees = (await product.categoria).fees;
         categoryFees = categoryFees / 100;
-        const productPrice = produtc.price;
-
-        const result = productPrice * categoryFees / (1 - Math.pow(1 + categoryFees, - quota))
-        return result.toFixed(2);
-        //return new Result(null, true, IdCategoria, null);
-    }
-
-
+        const productPrice = product.price;
+        var result = productPrice * categoryFees / (1 - Math.pow(1 + categoryFees, - quota))
+        const total = result * quota;
+        return `Valor Mensal: ${result.toFixed(2)} por ${quota} meses. Totalizando: ${total.toFixed(2)}`;
+    };
 }
