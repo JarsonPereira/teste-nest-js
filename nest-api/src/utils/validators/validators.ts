@@ -14,7 +14,7 @@ export class Validators {
     };
 
     hasMaxLen = (value, max, message) => {
-        if (!value || value.length > max) {
+        if (value || value.length > max) {
             this.errors.push(message);
         }
     };

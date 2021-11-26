@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { Product } from "../entity/product.entity";
 import { Result } from "../../utils/entity/result.model";
 import { ProductService } from "../service/product.service";
 import { ApiBody, ApiOperation, ApiParam, ApiResponse } from "@nestjs/swagger";
+import { ValidatorInterceptor } from "../../utils/validators/interceptor.validator";
+import { ProductValidator } from "../validator/product.validator";
 
 @Controller('product')
 export class ProductController {
@@ -40,7 +42,7 @@ export class ProductController {
     @ApiResponse({ status: 200, description: 'Produto cadastrado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Falha ao cadastrar novo produto.' })
     @ApiBody({ type: Product, description: "Produto" })
-    // @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
+    @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
     async post(@Body() model: Product) {
         try {
             const product = new Product();
@@ -61,7 +63,7 @@ export class ProductController {
     @ApiResponse({ status: 400, description: 'Falha ao atualizado produto.' })
     @ApiParam({ name: "id", type: Number, description: "Id do produto" })
     @ApiBody({ type: Product, description: "Produto" })
-    // @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
+     @UseInterceptors(new ValidatorInterceptor(new ProductValidator()))
     async put(@Body() model: Product, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);

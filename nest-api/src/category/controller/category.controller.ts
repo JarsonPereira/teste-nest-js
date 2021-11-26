@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { Category } from "../entity/category.entity";
 import { Result } from "../../utils/entity/result.model";
 import { CategoryService } from "../service/category.service";
 import { ApiBody, ApiOperation, ApiParam, ApiResponse } from "@nestjs/swagger";
+import { ValidatorInterceptor } from "../../utils/validators/interceptor.validator";
+import { CategoryValidator } from "../validator/category.validator";
 
 @Controller('category')
 export class CategoryController {
@@ -53,7 +55,7 @@ export class CategoryController {
     @ApiOperation({ description: "Cadastra uma nova categoria." })
     @ApiResponse({ status: 201, description: 'Categoria cadastrada com sucesso.' })
     @ApiResponse({ status: 400, description: 'Falha ao cadastrar uma nova categoria.' })
-    //@UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+    @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     @ApiBody({ type: Category, description: "Categoria" })
     async post(@Body() model: Category) {
         try {
@@ -70,7 +72,7 @@ export class CategoryController {
     @ApiResponse({ status: 400, description: 'Falha ao atualizar a categoria.' })
     @ApiParam({ name: "id", type: Number, description: "Id da categoria" })
     @ApiBody({ type: Category })
-    // @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
+    @UseInterceptors(new ValidatorInterceptor(new CategoryValidator()))
     async put(@Body() model: Category, @Param('id') id: number) {
         try {
             await this.repository.put(id, model);
