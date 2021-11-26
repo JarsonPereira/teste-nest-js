@@ -6,8 +6,8 @@ import { CategoryContract } from "../../category/service/contract/categoty.contr
 
 @Injectable()
 export class CategoryService implements CategoryContract {
-
-    constructor(@InjectRepository(Category) private readonly repository: Repository<Category>) { }
+    constructor(@InjectRepository(Category)
+    private readonly repository: Repository<Category>) { }
 
     async getByName(name: string): Promise<Category> {
         return await this.repository.findOne({ name: name })

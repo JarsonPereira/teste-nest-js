@@ -1,17 +1,17 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { Category } from "../../category/entity/category.entity";
 import { Product } from "../entity/product.entity";
 import { ProductContracts } from "./contract/product.contratc";
 
 @Injectable()
 export class ProductService implements ProductContracts {
-    constructor(
-        @InjectRepository(Product)
-        private readonly repository: Repository<Product>,) { }
+    constructor(@InjectRepository(Product)
+    private readonly repository: Repository<Product>) { }
 
     async get(): Promise<Product[]> {
-        return await this.repository.find();
+        return await this.repository.find({relations:['categoria'] });
     }
     async getByName(name: string): Promise<Product> {
         return await this.repository.findOne({ name: name })
