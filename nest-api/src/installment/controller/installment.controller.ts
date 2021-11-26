@@ -21,16 +21,17 @@ export class InstallmentController {
     }
 
     @Post(':name')
-    async installment(@Body('installment') installment, @Param('name') name) {
-        
-        const produtc = await this.product.getByName(name);
-        const price = produtc.price;
-      
+    async installment(@Body('installment') quota, @Param('name') name: string) {
 
-        
-        return installment + " " + price
+        const produtc = await this.product.getByName(name);
+        let categoryFees = (await produtc.categoria).fees;
+        categoryFees = categoryFees / 100;
+        const productPrice = produtc.price;
+
+        const result = productPrice * categoryFees / (1 - Math.pow(1 + categoryFees, - quota))
+        return result.toFixed(2);
         //return new Result(null, true, IdCategoria, null);
     }
 
-    
+
 }
