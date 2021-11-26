@@ -1,0 +1,26 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "951357",
+   "database": "products",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/category/entity/**/*.ts", 
+      "src/product/entity/**/*.ts",
+      "src/installment/entity/**/*.ts"
+   ],
+   "migrations": [ 
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}
